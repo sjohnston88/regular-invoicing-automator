@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ALL); ini_set('display_errors', 1);
 
 // Initial Setup 
 
@@ -82,11 +83,18 @@ foreach ($clients->clients as $client){
     $mail->addAttachment('./invoices/'.$filename);
 
     $mail->Subject = $mailSubject;
+    
+    $mail->IsHTML(true);
 
-    $mail->Body  = "Dear, " .$client->name.",\r\n\r\n";
+    $mail->Body  = "Dear " .$client->name.",<br /><br />";
     $mail->Body .= $emailMessage;
-    $mail->Body .= "\r\n\r\nMany Thanks,\r\n";
+    $mail->Body .= "<br /><br />Many Thanks,<br />";
     $mail->Body .= $name;
+    
+    $mail->AltBody  = "Dear " .$client->name.",\r\n\r\n";
+    $mail->AltBody .= $emailMessage;
+    $mail->AltBody .= "\r\n\r\nMany Thanks,\r\n";
+    $mail->AltBody .= $name;
     
     // Send the mailer
     if(!$mail->send()) {
