@@ -1,16 +1,19 @@
 ## Synopsis
 
-This is a regular invoice automator that creates PDF invoices and emails them automatically to customers at a set date and time. 
+This is a regular invoice automator that creates PDF invoices and email's them automatically to customers at a set date and time. 
 
 ## Motivation
 
-This software aims to aid in the similification of invocing. If you regularly create and send out invoices that are exactly the same each month, then this will automate the job completely. All your, and your clients information are stored in json files, so the application is simple, scalable and maintainable.
+This software aims to aid in the simplification of invoicing. If you regularly create and send out invoices that are exactly the same each month, then this will automate the job completely. All your, and your clients information are stored in json files, so the application is simple, scalable and maintainable.
 
 ## Requirements
 
 A webserver with CRON capabilities.
+
 dompdf (included in repository).
+
 PHPMailer (included in repository).
+
 SMTP Email Settings
 
 ## Installation & Configuration
