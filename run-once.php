@@ -1,13 +1,11 @@
 <?php
 error_reporting(E_ALL); ini_set('display_errors', 1);
-set_include_path('/var/www/html/regular-invoicing-automator/');
 
 // Initial Setup 
-
-require './dompdf/autoload.inc.php';
+require __DIR__ . '/dompdf/autoload.inc.php';
 use Dompdf\Dompdf;
 
-require './PHPMailer/class.phpmailer.php';
+require __DIR__ . '/PHPMailer/class.phpmailer.php';
 
 date_default_timezone_set('Europe/London');
 $services = '';
@@ -17,28 +15,28 @@ $dueDate = date("d/m/Y", strtotime('next month'));
 
 // Get config JSON data
 
-$json = file_get_contents('config.json');
+$json = file_get_contents(__DIR__ . '/config.json');
 $config = json_decode($json, true);
 
 extract($config, EXTR_PREFIX_SAME, "config");
 
 // Loop through clients
 
-$clients = json_decode(file_get_contents('clients.json'));
+$clients = json_decode(file_get_contents(__DIR__ . '/clients.json'));
 
 foreach ($clients->clients as $client){
     
     // Generate services rendered
     foreach($client->services as $service){
-        $services .= '<tr class="item"><td>'.$service->service.'</td>';
-        $services .= '<td>&pound;'.$service->price.'</td></tr>';
+        $services .= '<tr class="item"><td>' . $service->service . '</td>';
+        $services .= '<td>&pound;' . $service->price . '</td></tr>';
     }
     
     // Generate PDF Invoice
     $dompdf = new Dompdf();
     $dompdf->set_option('isHtml5ParserEnabled', true);
     
-    include './template.php';
+    include __DIR__ . '/template.php';
     
     $dompdf->loadHtml($invoiceHTML);
     $dompdf->render();
@@ -46,8 +44,8 @@ foreach ($clients->clients as $client){
     
     // Save Invoice
     $invoiceCompany = str_replace(' ', '-', $client->company);
-    $filename = 'Invoice-'.$client->companyShortname.$client->invoiceNumber.'-'.$invoiceCompany.'-'.$saveDate.'.pdf';
-    file_put_contents('./invoices/'.$filename, $output);
+    $filename = 'Invoice-' . $client->companyShortname . $client->invoiceNumber . '-' . $invoiceCompany . '-' . $saveDate . '.pdf';
+    file_put_contents(__DIR__ . '/invoices/' . $filename, $output);
     
     // Enable to assist debugging
     // echo $filename . ' has been written.<br />';
@@ -55,7 +53,7 @@ foreach ($clients->clients as $client){
     // Update clients.json
     $client->invoiceNumber = $client->invoiceNumber + 1;
     $updateJson = json_encode($clients, JSON_PRETTY_PRINT);
-    file_put_contents('clients.json', $updateJson);
+    file_put_contents(__DIR__ . '/clients.json', $updateJson);
     
     // Enable to assist debugging
     // echo $filename . ' invoice number has been increased by 1 ('.$client->invoiceNumber.')<br />';
@@ -81,18 +79,18 @@ foreach ($clients->clients as $client){
     $mail->addReplyTo($email, $name);
     $mail->addBCC($email);
 
-    $mail->addAttachment('./invoices/'.$filename);
+    $mail->addAttachment(__DIR__ . '/invoices/' . $filename);
 
     $mail->Subject = $mailSubject;
     
     $mail->IsHTML(true);
 
-    $mail->Body  = "Dear " .$client->name.",<br /><br />";
+    $mail->Body  = "Dear " . $client->name .",<br /><br />";
     $mail->Body .= $emailMessage;
     $mail->Body .= "<br /><br />Many Thanks,<br />";
     $mail->Body .= $name;
     
-    $mail->AltBody  = "Dear " .$client->name.",\r\n\r\n";
+    $mail->AltBody  = "Dear " . $client->name .",\r\n\r\n";
     $mail->AltBody .= $emailMessage;
     $mail->AltBody .= "\r\n\r\nMany Thanks,\r\n";
     $mail->AltBody .= $name;
@@ -106,7 +104,7 @@ foreach ($clients->clients as $client){
         // Send Error Email to Admin
         $to      = $email;
 		$subject = 'Error: New Invoice Failed to Send';
-		$message = 'An invoice due for payment by ' .$dueDate. 'has failed to send to ' . $client->name;
+		$message = 'An invoice due for payment by ' . $dueDate . 'has failed to send to ' . $client->name;
 		$headers = 'From:' . $email . "\r\n" .
                    'Reply-To:' . $email . "\r\n" .
                    'X-Mailer: PHP/' . phpversion();
@@ -116,12 +114,12 @@ foreach ($clients->clients as $client){
     } else {
         
         // Enable to assist debugging
-        echo $filename.' has been sent to the client<br /><br />';
+        //echo $filename.' has been sent to the client<br /><br />';
         
         // Send Success Email to Admin
         $to      = $email;
 		$subject = 'New Invoice Created';
-		$message = 'An invoice due for payment by ' .$dueDate. 'has sucessfully been sent to.' . $client->name;
+		$message = 'An invoice due for payment by ' . $dueDate . 'has sucessfully been sent to.' . $client->name;
 		$headers = 'From:' . $email . "\r\n" .
                    'Reply-To:' . $email . "\r\n" .
                    'X-Mailer: PHP/' . phpversion();
