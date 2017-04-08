@@ -20,7 +20,7 @@ $invoiceHTML = <<<HTML
     <table cellpadding="0" cellspacing="0">
     <tr>
     <td>$name<br><b>T:</b> $phone<br><b>E:</b> $email</td>
-    <td>$client->name<br>$client->company<br>$client->address</td>
+    <td align="right" style="text-align:right">$client->name<br>$client->company<br>$client->address</td>
     </tr>
     </table>
     </td>
@@ -38,7 +38,7 @@ $invoiceHTML = <<<HTML
     <table cellpadding="0" cellspacing="0">
     <tr>
     <td><b>Payable To</b><br>$name<br>$bankName<br>$sortCode<br>$accountNumber</td>
-    <td><b>Address</b><br>$address1<br>$address2<br>$country</td>
+    <td align="right" style="text-align:right"><b>Address</b><br>$address1<br>$address2<br>$country</td>
     </tr>
     </table>
     </td>
