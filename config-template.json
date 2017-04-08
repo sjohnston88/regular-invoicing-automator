@@ -1,0 +1,22 @@
+{  
+  "title":"Sales Invoice",
+  "name":"Joe Blogs",
+  "company":"Your Company",
+  "email":"Your Email",
+  "phone":"Your Phone Number",
+  "address1":"First Line of Address",
+  "address2":"Second Line of Address",
+  "country":"Your Country",
+  "bankName":"Your Banks Name",
+  "sortCode":"Your Sort Code",
+  "accountNumber":"Your Bank Account Number",
+  "paymentMethod":"Preferred Payment Method",
+  "mailHost":"SMTP Host Address",
+  "mailPort":587,
+  "mailAuth":true,
+  "mailSecure":"tls",
+  "mailUsername":"SMTP Username",
+  "mailPassword":"SMTP Password",
+  "mailSubject":"Latest invoice from Your Company",
+  "emailMessage":"Please find attached a new invoice for all services rendered. This email has been generated automatically but if you have any questions please feel free to reply or phone and I will get back to you as soon as possible."
+}

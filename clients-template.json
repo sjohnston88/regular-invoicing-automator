@@ -1,0 +1,52 @@
+{
+    "clients": [
+        {
+            "id": 0,
+            "name": "Client Name",
+            "company": "Clients Company Name LTD",
+            "companyShortname": "CCNLTD",
+            "email": "Clients Email",
+            "address": "Clients Address",
+            "invoiceNumber": 1,
+            "total": "300.00",
+            "services": [
+                {
+                    "service": "Description of Services",
+                    "price": "100.00"
+                },
+                {
+                    "service": "Description of Services",
+                    "price": "100.00"
+                },
+                {
+                    "service": "Description of Services",
+                    "price": "100.00"
+                }
+            ]
+        },
+        {
+            "id": 1,
+            "name": "Client Name",
+            "company": "Clients Company Name LTD",
+            "companyShortname": "CCNLTD",
+            "email": "Clients Email",
+            "address": "Clients Address",
+            "invoiceNumber": 1,
+            "total": "300.00",
+            "services": [
+                {
+                    "service": "Description of Services",
+                    "price": "100.00"
+                },
+                {
+                    "service": "Description of Services",
+                    "price": "100.00"
+                },
+                {
+                    "service": "Description of Services",
+                    "price": "100.00"
+                }
+            ]
+        }
+    ]
+}
