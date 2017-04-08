@@ -20,8 +20,18 @@ SMTP Email Settings
 
 Clone the repository to your local or webserver
 
-Replace the values in config.json with your own details.
+Rename config-template.json to config.json and update with your own details.
 
-Replace the values in clients.json with those of your clients, you can add as many as you'd like.
+Rename clients-template.json to clients.json and replace the values with those of your clients, you can add as many as you'd like.
 
-Create a cron job that runs run-once.php at a set time and date each month, my invoicing runs on the 18th of each month.
+Create a cron job that runs run-once.php at a set time and date each month, my invoicing runs on the 18th of each month. For example you can do:
+
+```bash
+crontab -e
+
+# Sucess Email goes too:
+MAILTO="example@exmaple.com"
+# Runs at 9am UTC on the 18th of each month:
+0 9 18 * * /usr/bin/php-7.0 /var/www/html/regular-invoicing-automator/run-once.php
+
+```
